@@ -17,6 +17,7 @@ let previousClick = null;
 for (var i = 0; i < numberOfDrumsButtons; i++) {
     document.querySelectorAll(`.drum`)[i].addEventListener('click', function () {
         const buttonText = this.innerText;
+        buttonAnimation(buttonText);
         switch (buttonText) {
             case 'w':
                 var audio = new Audio('sounds/tom-1.mp3');
@@ -77,4 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
         keysButtonsDict[event.key].click();
     })
 
-})
+});
+
+
+
+function buttonAnimation(currentKey){
+    var activeButton = document.querySelector(`.${currentKey}`);
+    activeButton.classList.add(`pressed`);
+
+    setTimeout(function(){
+        activeButton.classList.remove('pressed');
+    }, 100);
+}
