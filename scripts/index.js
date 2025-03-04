@@ -1,6 +1,6 @@
-var numberOfDrumsButtons = document.querySelectorAll(".drum").length;
+export var numberOfDrumsButtons = document.querySelectorAll(".drum").length;
 
-var keysButtonsDict = {
+export var keysButtonsDict = {
     'w': document.querySelectorAll(`.drum`)[0],
     'a': document.querySelectorAll(`.drum`)[1],
     's': document.querySelectorAll(`.drum`)[2],
@@ -8,15 +8,17 @@ var keysButtonsDict = {
     'j': document.querySelectorAll(`.drum`)[4],
     'k': document.querySelectorAll(`.drum`)[5],
     'l': document.querySelectorAll(`.drum`)[6]
-}
+} 
+
 
 
 console.log(numberOfDrumsButtons);
-let previousClick = null;
+export let previousClick = null;
 //ARROW FUNCTION DOES NOT AUTOMATICALLY BIND THIS.
 for (var i = 0; i < numberOfDrumsButtons; i++) {
     document.querySelectorAll(`.drum`)[i].addEventListener('click', function () {
         const buttonText = this.innerText;
+        console.log("CLICKED...")
         buttonAnimation(buttonText);
         switch (buttonText) {
             case 'w':
@@ -71,15 +73,54 @@ for (var i = 0; i < numberOfDrumsButtons; i++) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
+
+function loadPage(){
+
+    const body_html = `
+
+    <div class="set">
+        <button class="w drum">w</button>
+        <button class="a drum">a</button>
+        <button class="s drum">s</button>
+        <button class="d drum">d</button>
+        <button class="j drum">j</button>
+        <button class="k drum">k</button>
+        <button class="l drum">l</button>
+    </div>
+
+    <div class="none"></div>
 
 
-    document.addEventListener('keydown', (event) => {
-        keysButtonsDict[event.key].click();
-    })
+    <script src="./scripts/index.js" type="module"></script>
 
-});
+    `;
 
+
+    document.querySelector(`body`).innerHTML += body_html;
+    
+
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const pageTitle = event.target.title;
+
+    if(pageTitle === 'Drum Kit'){
+        document.addEventListener('keydown', (event) => {
+            keysButtonsDict[event.key].click();
+        });
+    }else{
+        console.log(`JASMINE TEST`);
+
+    
+    }
+
+})
+
+
+
+function cleanUpScreen(){
+    document.querySelector(`html`).innerHTML = ``;
+} 
 
 
 function buttonAnimation(currentKey){
@@ -90,3 +131,8 @@ function buttonAnimation(currentKey){
         activeButton.classList.remove('pressed');
     }, 100);
 }
+
+
+
+
+export {cleanUpScreen,loadPage,buttonAnimation};
