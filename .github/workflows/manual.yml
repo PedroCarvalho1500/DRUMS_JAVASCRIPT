@@ -1,19 +1,25 @@
 # This is a basic workflow that is manually triggered
 
-name: Manual workflow
+name: My First GitHubActions pipeline
+
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
-on:
-   pull_request:
-      types: [opened, reopened]
-      branches: 
-        - main
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
+
+on:
+  push:
+    branches:
+      'main'
+
 jobs:
-  job1:
-      runs-on: ubuntu-latest
-      outputs:
-        output1: ${{steps.step1.putputs.test}}
-  steps 
+  run_first_actions:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: run shell script  command
+        run: echo "Hello World!"
